@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Tunisia - Votre passerelle vers l'aventure</title>
+    <meta name="description" content="Explorez les plus belles destinations touristiques de Tunisie : plages, désert, culture, villes historiques.">
+    <meta name="keywords" content="Tunisie, tourisme, plages, désert, culture, voyage, Tunis, Djerba, Tozeur, Sidi Bou Saïd">
+    
+    <!-- Bootstrap & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Language selector on navbar */
+        .lang-select {
+            width: auto;
+            min-width: 90px;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            background: url('https://source.unsplash.com/featured/?tunisia,mediterranean') no-repeat center/cover;
+            height: 70vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0,0,0,0.65), rgba(0,0,0,0.35));
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .hero p {
+            max-width: 650px;
+            margin: 10px auto 20px;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .filters-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+
+        .filter-btn {
+            border-radius: 999px;
+            border: 1px solid #dee2e6;
+            padding: 5px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background-color: white;
+            transition: all 0.2s;
+            margin: 2px;
+        }
+        .filter-btn.active,
+        .filter-btn:hover {
+            background-color: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+
+        .card {
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+        }
+        .card-img-top {
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .destination-meta span {
+            font-size: 0.75rem;
+            margin-right: 6px;
+        }
+        .badge-theme {
+            background-color: #e9f7ff;
+            color: #0d6efd;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+
+        .card.recommended {
+            border: 2px solid #198754;
+            position: relative;
+        }
+        .card.recommended::before {
+            content: attr(data-recommend-label);
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #198754;
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        #culture ul {
+            padding-left: 20px;
+        }
+
+        footer {
+            background: #212529;
+            color: #adb5bd;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        footer a {
+            color: #f8f9fa;
+            text-decoration: underline;
+        }
+
+        /* RTL adjustments (when Arabic) */
+        [dir="rtl"] body {
+            text-align: right;
+        }
+        [dir="rtl"] .navbar .navbar-nav.ms-auto {
+            margin-left: 0 !important;
+            margin-right: auto !important;
+        }
+        [dir="rtl"] .navbar-brand {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-globe-africa me-2"></i>
+                <span data-i18n="brand_name">Discover Tunisia</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home" data-i18n="nav_home">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#destinations" data-i18n="nav_destinations">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#culture" data-i18n="nav_culture">Culture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact" data-i18n="nav_contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <select id="languageSelect" class="form-select form-select-sm lang-select">
+                            <option value="fr">FR</option>
+                            <option value="en">EN</option>
+                            <option value="de">DE</option>
+                            <option value="ar">العربية</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1 data-i18n="hero_title">Bienvenue en Tunisie</h1>
+            <p data-i18n="hero_subtitle">
+                Plages méditerranéennes, villages blancs et bleus, désert saharien, sites antiques… construisez un voyage qui vous ressemble.
+            </p>
+            <a href="#destinations" class="btn btn-light btn-lg me-2">
+                <i class="fa-solid fa-map-location-dot me-1"></i>
+                <span data-i18n="hero_cta_destinations">Explorer les destinations</span>
+            </a>
+            <a href="#contact" class="btn btn-outline-light btn-lg">
+                <i class="fa-solid fa-paper-plane me-1"></i>
+                <span data-i18n="hero_cta_plan">Planifier mon voyage</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- DESTINATIONS -->
+    <section id="destinations" class="section bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4" data-i18n="destinations_title">
+                Destinations incontournables en Tunisie
+            </h2>
+            <p class="text-center text-muted mb-4" data-i18n="destinations_intro">
+                Filtrez par type de destination, par région ou par mot-clé, et laissez l’outil vous suggérer les lieux les plus adaptés à votre façon de voyager.
+            </p>
+
+            <!-- Filtres -->
+            <div class="filters-bar">
+                <div class="row g-3 align-items-center">
+                    <!-- Types -->
+                    <div class="col-lg-4">
+                        <label class="form-label fw-semibold mb-1" data-i18n="filters_type_label">Type de destination</label>
+                        <div class="d-flex flex-wrap">
+                            <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Tous</button>
+                            <button class="filter-btn" data-filter="plage" data-i18n="filter_beach">Plages</button>
+                            <button class="filter-btn" data-filter="desert" data-i18n="filter_desert">Désert</button>
+                            <button class="filter-btn" data-filter="culture" data-i18n="filter_culture">Culture & Histoire</button>
+                            <button class="filter-btn" data-filter="ville" data-i18n="filter_city">Villes & Médinas</button>
+                            <button class="filter-btn" data-filter="bien-etre" data-i18n="filter_wellness">Bien-être</button>
+                        </div>
+                    </div>
+
+                    <!-- Région -->
+                    <div class="col-md-6 col-lg-3">
+                        <label class="form-label fw-semibold mb-1" data-i18n="filters_region_label">Région</label>
+                        <select id="regionSelect" class="form-select">
+                            <option value="all" data-i18n="region_all">Toute la Tunisie</option>
+                            <option value="nord" data-i18n="region_north">Nord & Tunis</option>
+                            <option value="sahel" data-i18n="region_sahel">Sahel & côte est</option>
+                            <option value="sud" data-i18n="region_south">Sud & Sahara</option>
+                            <option value="iles" data-i18n="region_islands">Îles & littoral</option>
+                        </select>
+                    </div>
+
+                    <!-- Recherche -->
+                    <div class="col-md-6 col-lg-3">
+                        <label class="form-label fw-semibold mb-1" data-i18n="filters_search_label">Recherche par ville / lieu</label>
+                        <input type="text" id="searchInput" class="form-control" 
+                               data-i18n-placeholder="filters_search_placeholder"
+                               placeholder="Ex : Djerba, Tunis, Tozeur…">
+                    </div>
+
+                    <!-- Profil -->
+                    <div class="col-md-6 col-lg-2">
+                        <label class="form-label fw-semibold mb-1" data-i18n="filters_profile_label">Profil de voyageur</label>
+                        <select id="profileSelect" class="form-select">
+                            <option value="" data-i18n="profile_placeholder">Choisir un profil</option>
+                            <option value="famille" data-i18n="profile_family">Famille</option>
+                            <option value="aventure" data-i18n="profile_adventure">Aventurier</option>
+                            <option value="culture" data-i18n="profile_culture">Histoire & culture</option>
+                            <option value="detente" data-i18n="profile_relax">Plage & détente</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grille des destinations -->
+            <div class="row" id="destinationGrid">
+                <!-- Carthage -->
+                <div class="col-md-4 mb-4">
+                    <div class="card destination-card"
+                         data-type="culture"
+                         data-region="nord"
+                         data-themes="culture,famille"
+                         data-name="carthage"
+                         data-recommend-label="">
+                        <img src="https://source.unsplash.com/featured/400x250/?carthage,tunisia" class="card-img-top" alt="Ruines de Carthage">
+                        <div class="card-body">
+                            <h5 class="card-title" data-i18n="dest_carthage_title">Carthage</h5>
+                            <p class="card-text" data-i18n="dest_carthage_text">
+                                Site antique majeur classé à l’UNESCO : ruines romaines, héritage punique et vue panoramique sur le golfe de Tunis.
+                            </p>
+                            <div class="destination-meta mb-2">
+                                <span class="badge bg-secondary">
+                                    <i class="fa-solid fa-landmark me-1"></i>
+                                    <span data-i18n="dest_carthage_badge1">Culture & histoire</span>
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fa-solid fa-car me-1"></i>
+                                    <span data-i18n="dest_carthage_badge2">Proche de Tunis</span>
+                                </span>
+                            </div>
+                            <span class="badge badge-theme" data-i18n="dest_carthage_chip">Idéal en 1 journée</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hammamet -->
+                <div class="col-md-4 mb-4">
+                    <div class="card destination-card"
+                         data-type="plage"
+                         data-region="sahel"
+                         data-themes="detente,famille"
+                         data-name="hammamet"
+                         data-recommend-label="">
+                        <img src="https://source.unsplash.com/featured/400x250/?hammamet,beach" class="card-img-top" alt="Plages de Hammamet">
+                        <div class="card-body">
+                            <h5 class="card-title" data-i18n="dest_hammamet_title">Hammamet</h5>
+                            <p class="card-text" data-i18n="dest_hammamet_text">
+                                Station balnéaire emblématique : longues plages, hôtels tout compris, sports nautiques et ambiance animée en soirée.
+                            </p>
+                            <div class="destination-meta mb-2">
+                                <span class="badge bg-info text-dark">
+                                    <i class="fa-solid fa-umbrella-beach me-1"></i>
+                                    <span data-i18n="dest_hammamet_badge1">Plage & farniente</span>
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fa-solid fa-child-reaching me-1"></i>
+                                    <span data-i18n="dest_hammamet_badge2">Parfaite pour les familles</span>
+                                </span>
+                            </div>
+                            <span class="badge badge-theme" data-i18n="dest_hammamet_chip">Idéal pour 4–7 jours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sahara -->
+                <div class="col-md-4 mb-4">
+                    <div class="card destination-card"
+                         data-type="desert"
+                         data-region="sud"
+                         data-themes="aventure"
+                         data-name="sahara,tozeur,douz"
+                         data-recommend-label="">
+                        <img src="https://source.unsplash.com/featured/400x250/?sahara,tunisia" class="card-img-top" alt="Sahara tunisien">
+                        <div class="card-body">
+                            <h5 class="card-title" data-i18n="dest_sahara_title">Sahara (Tozeur & Douz)</h5>
+                            <p class="card-text" data-i18n="dest_sahara_text">
+                                Campements sous les étoiles, dunes dorées, oasis verdoyantes et décors de cinéma : l’aventure saharienne à portée de main.
+                            </p>
+                            <div class="destination-meta mb-2">
+                                <span class="badge bg-warning text-dark">
+                                    <i class="fa-solid fa-sun me-1"></i>
+                                    <span data-i18n="dest_sahara_badge1">Désert & oasis</span>
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fa-solid fa-person-hiking me-1"></i>
+                                    <span data-i18n="dest_sahara_badge2">Pour les amateurs d’aventure</span>
+                                </span>
+                            </div>
+                            <span class="badge badge-theme" data-i18n="dest_sahara_chip">Idéal pour 2–3 jours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidi Bou Saïd -->
+                <div class="col-md-4 mb-4">
+                    <div class="card destination-card"
+                         data-type="ville"
+                         data-region="nord"
+                         data-themes="culture,detente"
+                         data-name="sidi bou said"
+                         data-recommend-label="">
+                        <img src="https://source.unsplash.com/featured/400x250/?sidi-bou-said" class="card-img-top" alt="Village de Sidi Bou Saïd">
+                        <div class="card-body">
+                            <h5 class="card-title" data-i18n="dest_sidi_title">Sidi Bou Saïd</h5>
+                            <p class="card-text" data-i18n="dest_sidi_text">
+                                Village blanc et bleu surplombant la mer, cafés traditionnels, galeries d’art et ambiance bohème au coucher du soleil.
+                            </p>
+                            <div class="destination-meta mb-2">
+                                <span class="badge bg-primary">
+                                    <i class="fa-solid fa-city me-1"></i>
+                                    <span data-i18n="dest_sidi_badge1">Village pittoresque</span>
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fa-solid fa-mug-saucer me-1"></i>
+                                    <span data-i18n="dest_sidi_badge2">Cafés & vue mer</span>
+                                </span>
+                            </div>
+                            <span class="badge badge-theme" data-i18n="dest_sidi_chip">Idéal en demi-journée</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Djerba -->
+                <div class="col-md-4 mb-4">
+                    <div class="card destination-card"
+                         data-type="plage"
+                         data-region="iles"
+                         data-themes="famille,detente"
+                         data-name="djerba"
+                         data-recommend-label="">
+                        <img src="https://source.unsplash.com/featured/400x250/?djerba,tunisia" class="card-img-top" alt="Île de Djerba">
+                        <div class="card-body">
+                            <h5 class="card-title" data-i18n="dest_djerba_title">Djerba</h5>
+                            <p class="card-text" data-i18n="dest_djerba_text">
+                                Île au climat doux, plages tranquilles, villages traditionnels, kitesurf et centres de thalasso pour un séjour 100% détente.
+                            </p>
+                            <div class="destination-meta mb-2">
+                                <span class="badge bg-info text-dark">
+                                    <i class="fa-solid fa-island-tropical me-1"></i>
+                                    <span data-i18n="dest_djerba_badge1">Île & plage</span>
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fa-solid fa-spa me-1"></i>
+                                    <span data-i18n="dest_djerba_badge2">Bien-être & thalasso</span>
+                                </span>
+                            </div>
+                            <span class="badge badge-theme" data-i18n="dest_djerba_chip">Idéal pour 5–10 jours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tunis -->
+                <div class="col-md-4 mb-4">
+                    <div class="card destination-card"
+                         data-type="ville"
+                         data-region="nord"
+                         data-themes="culture"
+                         data-name="tunis,medina"
+                         data-recommend-label="">
+                        <img src="https://source.unsplash.com/featured/400x250/?tunis,medina" class="card-img-top" alt="Médina de Tunis">
+                        <div class="card-body">
+                            <h5 class="card-title" data-i18n="dest_tunis_title">Tunis & sa médina</h5>
+                            <p class="card-text" data-i18n="dest_tunis_text">
+                                Médina classée à l’UNESCO, souks animés, mosquées, musées et quartiers modernes : un concentré de Tunisie en une seule ville.
+                            </p>
+                            <div class="destination-meta mb-2">
+                                <span class="badge bg-secondary">
+                                    <i class="fa-solid fa-store me-1"></i>
+                                    <span data-i18n="dest_tunis_badge1">Souks & artisanat</span>
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fa-solid fa-landmark-dome me-1"></i>
+                                    <span data-i18n="dest_tunis_badge2">Patrimoine & musées</span>
+                                </span>
+                            </div>
+                            <span class="badge badge-theme" data-i18n="dest_tunis_chip">Idéal pour 2–4 jours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-muted mt-3" id="noResults" data-i18n="no_results" style="display: none;">
+                Aucune destination ne correspond à vos critères pour le moment. Essayez d’élargir vos filtres.
+            </p>
+        </div>
+    </section>
+
+    <!-- CULTURE -->
+    <section id="culture" class="section">
+        <div class="container">
+            <h2 class="text-center mb-4" data-i18n="culture_title">Culture & Cuisine tunisiennes</h2>
+            <p class="mb-4" data-i18n="culture_intro">
+                La Tunisie est à la croisée des influences arabes, berbères, ottomanes et méditerranéennes. 
+                Médinas animées, festivals internationaux, gastronomie généreuse et hospitalité en font une destination riche en rencontres.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h4>
+                        <i class="fa-solid fa-bowl-food me-2 text-primary"></i>
+                        <span data-i18n="culture_food_title">Spécialités culinaires</span>
+                    </h4>
+                    <ul>
+                        <li data-i18n="culture_food_1">Couscous (agneau, poisson ou légumes)</li>
+                        <li data-i18n="culture_food_2">Brik à l’œuf, croustillante et généreuse</li>
+                        <li data-i18n="culture_food_3">Harissa, condiment piquant emblématique</li>
+                        <li data-i18n="culture_food_4">Ojja (tomates, poivrons, œufs)</li>
+                        <li data-i18n="culture_food_5">Thé à la menthe et pignons</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h4>
+                        <i class="fa-solid fa-masks-theater me-2 text-primary"></i>
+                        <span data-i18n="culture_experience_title">Expériences culturelles</span>
+                    </h4>
+                    <ul>
+                        <li data-i18n="culture_experience_1">Flâner dans les souks de la médina de Tunis ou de Sousse</li>
+                        <li data-i18n="culture_experience_2">Assister au Festival international de Carthage</li>
+                        <li data-i18n="culture_experience_3">Découvrir les mosaïques du musée du Bardo</li>
+                        <li data-i18n="culture_experience_4">Visiter les villages berbères de montagne (Chenini, Douiret…)</li>
+                        <li data-i18n="culture_experience_5">Observer le coucher de soleil depuis Sidi Bou Saïd</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4" data-i18n="contact_title">Planifier votre voyage</h2>
+            <p class="text-center text-muted mb-4" data-i18n="contact_intro">
+                Indiquez vos dates, votre budget et le style de voyage souhaité. Nous vous proposerons un itinéraire sur mesure pour découvrir la Tunisie.
+            </p>
+            <form id="contactForm" class="mx-auto" style="max-width: 700px;">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" 
+                               data-i18n-placeholder="contact_name_placeholder"
+                               placeholder="Nom complet" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="email" class="form-control" 
+                               data-i18n-placeholder="contact_email_placeholder"
+                               placeholder="Adresse e-mail" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" required>
+                        <option value="" data-i18n="contact_type_placeholder">Type de voyage souhaité</option>
+                        <option value="plage" data-i18n="contact_type_beach">Séjour plage & détente</option>
+                        <option value="tour" data-i18n="contact_type_circuit">Circuit culturel</option>
+                        <option value="desert" data-i18n="contact_type_desert">Désert & aventure</option>
+                        <option value="mix" data-i18n="contact_type_mix">Mix plage / culture / désert</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="4"
+                              data-i18n-placeholder="contact_message_placeholder"
+                              placeholder="Parlez-nous de vos envies, dates, budget, nombre de personnes..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane me-1"></i>
+                    <span data-i18n="contact_button">Envoyer ma demande</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            <span data-i18n="footer_text">&copy; 2025 Discover Tunisia. Tous droits réservés.</span>
+            &nbsp;
+            <a href="#" data-i18n="footer_privacy">Politique de confidentialité</a>
+        </p>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // === TRADUCTIONS ===
+        const translations = {
+            fr: {
+                page_title: "Discover Tunisia - Votre passerelle vers l'aventure",
+                brand_name: "Discover Tunisia",
+                nav_home: "Accueil",
+                nav_destinations: "Destinations",
+                nav_culture: "Culture",
+                nav_contact: "Contact",
+                hero_title: "Bienvenue en Tunisie",
+                hero_subtitle: "Plages méditerranéennes, villages blancs et bleus, désert saharien, sites antiques… construisez un voyage qui vous ressemble.",
+                hero_cta_destinations: "Explorer les destinations",
+                hero_cta_plan: "Planifier mon voyage",
+                destinations_title: "Destinations incontournables en Tunisie",
+                destinations_intro: "Filtrez par type de destination, par région ou par mot-clé, et laissez l’outil vous suggérer les lieux les plus adaptés à votre façon de voyager.",
+                filters_type_label: "Type de destination",
+                filter_all: "Tous",
+                filter_beach: "Plages",
+                filter_desert: "Désert",
+                filter_culture: "Culture & Histoire",
+                filter_city: "Villes & Médinas",
+                filter_wellness: "Bien-être",
+                filters_region_label: "Région",
+                region_all: "Toute la Tunisie",
+                region_north: "Nord & Tunis",
+                region_sahel: "Sahel & côte est",
+                region_south: "Sud & Sahara",
+                region_islands: "Îles & littoral",
+                filters_search_label: "Recherche par ville / lieu",
+                filters_search_placeholder: "Ex : Djerba, Tunis, Tozeur…",
+                filters_profile_label: "Profil de voyageur",
+                profile_placeholder: "Choisir un profil",
+                profile_family: "Famille",
+                profile_adventure: "Aventurier",
+                profile_culture: "Histoire & culture",
+                profile_relax: "Plage & détente",
+
+                dest_carthage_title: "Carthage",
+                dest_carthage_text: "Site antique majeur classé à l’UNESCO : ruines romaines, héritage punique et vue panoramique sur le golfe de Tunis.",
+                dest_carthage_badge1: "Culture & histoire",
+                dest_carthage_badge2: "Proche de Tunis",
+                dest_carthage_chip: "Idéal en 1 journée",
+
+                dest_hammamet_title: "Hammamet",
+                dest_hammamet_text: "Station balnéaire emblématique : longues plages, hôtels tout compris, sports nautiques et ambiance animée en soirée.",
+                dest_hammamet_badge1: "Plage & farniente",
+                dest_hammamet_badge2: "Parfaite pour les familles",
+                dest_hammamet_chip: "Idéal pour 4–7 jours",
+
+                dest_sahara_title: "Sahara (Tozeur & Douz)",
+                dest_sahara_text: "Campements sous les étoiles, dunes dorées, oasis verdoyantes et décors de cinéma : l’aventure saharienne à portée de main.",
+                dest_sahara_badge1: "Désert & oasis",
+                dest_sahara_badge2: "Pour les amateurs d’aventure",
+                dest_sahara_chip: "Idéal pour 2–3 jours",
+
+                dest_sidi_title: "Sidi Bou Saïd",
+                dest_sidi_text: "Village blanc et bleu surplombant la mer, cafés traditionnels, galeries d’art et ambiance bohème au coucher du soleil.",
+                dest_sidi_badge1: "Village pittoresque",
+                dest_sidi_badge2: "Cafés & vue mer",
+                dest_sidi_chip: "Idéal en demi-journée",
+
+                dest_djerba_title: "Djerba",
+                dest_djerba_text: "Île au climat doux, plages tranquilles, villages traditionnels, kitesurf et centres de thalasso pour un séjour 100% détente.",
+                dest_djerba_badge1: "Île & plage",
+                dest_djerba_badge2: "Bien-être & thalasso",
+                dest_djerba_chip: "Idéal pour 5–10 jours",
+
+                dest_tunis_title: "Tunis & sa médina",
+                dest_tunis_text: "Médina classée à l’UNESCO, souks animés, mosquées, musées et quartiers modernes : un concentré de Tunisie en une seule ville.",
+                dest_tunis_badge1: "Souks & artisanat",
+                dest_tunis_badge2: "Patrimoine & musées",
+                dest_tunis_chip: "Idéal pour 2–4 jours",
+
+                no_results: "Aucune destination ne correspond à vos critères pour le moment. Essayez d’élargir vos filtres.",
+
+                culture_title: "Culture & Cuisine tunisiennes",
+                culture_intro: "La Tunisie est à la croisée des influences arabes, berbères, ottomanes et méditerranéennes. Médinas animées, festivals internationaux, gastronomie généreuse et hospitalité en font une destination riche en rencontres.",
+                culture_food_title: "Spécialités culinaires",
+                culture_food_1: "Couscous (agneau, poisson ou légumes)",
+                culture_food_2: "Brik à l’œuf, croustillante et généreuse",
+                culture_food_3: "Harissa, condiment piquant emblématique",
+                culture_food_4: "Ojja (tomates, poivrons, œufs)",
+                culture_food_5: "Thé à la menthe et pignons",
+                culture_experience_title: "Expériences culturelles",
+                culture_experience_1: "Flâner dans les souks de la médina de Tunis ou de Sousse",
+                culture_experience_2: "Assister au Festival international de Carthage",
+                culture_experience_3: "Découvrir les mosaïques du musée du Bardo",
+                culture_experience_4: "Visiter les villages berbères de montagne (Chenini, Douiret…)",
+                culture_experience_5: "Observer le coucher de soleil depuis Sidi Bou Saïd",
+
+                contact_title: "Planifier votre voyage",
+                contact_intro: "Indiquez vos dates, votre budget et le style de voyage souhaité. Nous vous proposerons un itinéraire sur mesure pour découvrir la Tunisie.",
+                contact_name_placeholder: "Nom complet",
+                contact_email_placeholder: "Adresse e-mail",
+                contact_type_placeholder: "Type de voyage souhaité",
+                contact_type_beach: "Séjour plage & détente",
+                contact_type_circuit: "Circuit culturel",
+                contact_type_desert: "Désert & aventure",
+                contact_type_mix: "Mix plage / culture / désert",
+                contact_message_placeholder: "Parlez-nous de vos envies, dates, budget, nombre de personnes...",
+                contact_button: "Envoyer ma demande",
+
+                footer_text: "© 2025 Discover Tunisia. Tous droits réservés.",
+                footer_privacy: "Politique de confidentialité",
+
+                recommend_label: "Recommandé pour vous"
+            },
+            en: {
+                page_title: "Discover Tunisia - Your gateway to adventure",
+                brand_name: "Discover Tunisia",
+                nav_home: "Home",
+                nav_destinations: "Destinations",
+                nav_culture: "Culture",
+                nav_contact: "Contact",
+                hero_title: "Welcome to Tunisia",
+                hero_subtitle: "Mediterranean beaches, white-and-blue villages, Saharan desert and ancient sites — design a journey that fits you.",
+                hero_cta_destinations: "Explore destinations",
+                hero_cta_plan: "Plan my trip",
+                destinations_title: "Must-see destinations in Tunisia",
+                destinations_intro: "Filter by type, region or keyword and let the tool suggest the places that best match your travel style.",
+                filters_type_label: "Type of destination",
+                filter_all: "All",
+                filter_beach: "Beaches",
+                filter_desert: "Desert",
+                filter_culture: "Culture & history",
+                filter_city: "Cities & medinas",
+                filter_wellness: "Wellness",
+                filters_region_label: "Region",
+                region_all: "All of Tunisia",
+                region_north: "North & Tunis",
+                region_sahel: "Sahel & east coast",
+                region_south: "South & Sahara",
+                region_islands: "Islands & coastline",
+                filters_search_label: "Search by city / place",
+                filters_search_placeholder: "E.g. Djerba, Tunis, Tozeur…",
+                filters_profile_label: "Traveller profile",
+                profile_placeholder: "Choose a profile",
+                profile_family: "Family",
+                profile_adventure: "Adventurer",
+                profile_culture: "History & culture",
+                profile_relax: "Beach & relax",
+
+                dest_carthage_title: "Carthage",
+                dest_carthage_text: "Major UNESCO World Heritage site with Roman ruins, Punic heritage and sweeping views over the Gulf of Tunis.",
+                dest_carthage_badge1: "Culture & history",
+                dest_carthage_badge2: "Close to Tunis",
+                dest_carthage_chip: "Ideal as a day trip",
+
+                dest_hammamet_title: "Hammamet",
+                dest_hammamet_text: "Iconic seaside resort with long sandy beaches, all-inclusive hotels, water sports and lively evenings.",
+                dest_hammamet_badge1: "Beach & sun",
+                dest_hammamet_badge2: "Perfect for families",
+                dest_hammamet_chip: "Best for 4–7 days",
+
+                dest_sahara_title: "Sahara (Tozeur & Douz)",
+                dest_sahara_text: "Starry-sky camps, golden dunes, lush oases and movie-set landscapes: the Sahara adventure made easy.",
+                dest_sahara_badge1: "Desert & oases",
+                dest_sahara_badge2: "For adventure lovers",
+                dest_sahara_chip: "Best for 2–3 days",
+
+                dest_sidi_title: "Sidi Bou Saïd",
+                dest_sidi_text: "White-and-blue hilltop village above the sea, traditional cafés, art galleries and a bohemian sunset atmosphere.",
+                dest_sidi_badge1: "Picturesque village",
+                dest_sidi_badge2: "Cafés & sea views",
+                dest_sidi_chip: "Perfect for half a day",
+
+                dest_djerba_title: "Djerba",
+                dest_djerba_text: "Gentle-climate island with quiet beaches, traditional villages, kitesurf spots and thalasso centers for total relaxation.",
+                dest_djerba_badge1: "Island & beach",
+                dest_djerba_badge2: "Wellness & thalasso",
+                dest_djerba_chip: "Best for 5–10 days",
+
+                dest_tunis_title: "Tunis & its medina",
+                dest_tunis_text: "UNESCO-listed medina, lively souks, mosques, museums and modern districts: Tunisia in a single city.",
+                dest_tunis_badge1: "Souks & crafts",
+                dest_tunis_badge2: "Heritage & museums",
+                dest_tunis_chip: "Best for 2–4 days",
+
+                no_results: "No destination matches your criteria yet. Try broadening your filters.",
+
+                culture_title: "Tunisian culture & cuisine",
+                culture_intro: "Tunisia stands at the crossroads of Arab, Berber, Ottoman and Mediterranean influences. Bustling medinas, international festivals, generous food and warm hospitality shape every journey.",
+                culture_food_title: "Food highlights",
+                culture_food_1: "Couscous (with lamb, fish or vegetables)",
+                culture_food_2: "Crispy egg brik",
+                culture_food_3: "Harissa, the iconic spicy paste",
+                culture_food_4: "Ojja (tomato, peppers, eggs)",
+                culture_food_5: "Mint tea with pine nuts",
+                culture_experience_title: "Cultural experiences",
+                culture_experience_1: "Wander through the souks of Tunis or Sousse",
+                culture_experience_2: "Attend the International Festival of Carthage",
+                culture_experience_3: "Admire mosaics at the Bardo Museum",
+                culture_experience_4: "Visit Berber mountain villages (Chenini, Douiret…)",
+                culture_experience_5: "Watch the sunset from Sidi Bou Saïd",
+
+                contact_title: "Plan your trip",
+                contact_intro: "Share your dates, budget and travel style. We’ll design a tailor-made itinerary to help you discover Tunisia.",
+                contact_name_placeholder: "Full name",
+                contact_email_placeholder: "Email address",
+                contact_type_placeholder: "Preferred type of trip",
+                contact_type_beach: "Beach & relaxation stay",
+                contact_type_circuit: "Cultural tour",
+                contact_type_desert: "Desert & adventure",
+                contact_type_mix: "Mix of beach / culture / desert",
+                contact_message_placeholder: "Tell us about your plans: dates, budget, number of travellers…",
+                contact_button: "Send my request",
+
+                footer_text: "© 2025 Discover Tunisia. All rights reserved.",
+                footer_privacy: "Privacy policy",
+
+                recommend_label: "Recommended for you"
+            },
+            de: {
+                page_title: "Discover Tunisia - Ihr Tor zum Abenteuer",
+                brand_name: "Discover Tunisia",
+                nav_home: "Startseite",
+                nav_destinations: "Reiseziele",
+                nav_culture: "Kultur",
+                nav_contact: "Kontakt",
+                hero_title: "Willkommen in Tunesien",
+                hero_subtitle: "Mittelmeerstrände, weiß-blaue Dörfer, Sahara-Wüste und antike Stätten – stellen Sie sich Ihre Reise ganz individuell zusammen.",
+                hero_cta_destinations: "Reiseziele entdecken",
+                hero_cta_plan: "Reise planen",
+                destinations_title: "Die wichtigsten Reiseziele in Tunesien",
+                destinations_intro: "Filtern Sie nach Reisetyp, Region oder Stichwort und lassen Sie sich passende Orte für Ihren Reisestil vorschlagen.",
+                filters_type_label: "Art des Reiseziels",
+                filter_all: "Alle",
+                filter_beach: "Strände",
+                filter_desert: "Wüste",
+                filter_culture: "Kultur & Geschichte",
+                filter_city: "Städte & Medinas",
+                filter_wellness: "Wellness",
+                filters_region_label: "Region",
+                region_all: "Ganz Tunesien",
+                region_north: "Norden & Tunis",
+                region_sahel: "Sahel & Ostküste",
+                region_south: "Süden & Sahara",
+                region_islands: "Inseln & Küste",
+                filters_search_label: "Suche nach Stadt / Ort",
+                filters_search_placeholder: "Z.B. Djerba, Tunis, Tozeur…",
+                filters_profile_label: "Reisetyp",
+                profile_placeholder: "Profil wählen",
+                profile_family: "Familie",
+                profile_adventure: "Abenteurer",
+                profile_culture: "Geschichte & Kultur",
+                profile_relax: "Strand & Entspannung",
+
+                dest_carthage_title: "Karthago",
+                dest_carthage_text: "Bedeutende UNESCO-Stätte mit römischen Ruinen, punischem Erbe und Blick über den Golf von Tunis.",
+                dest_carthage_badge1: "Kultur & Geschichte",
+                dest_carthage_badge2: "In der Nähe von Tunis",
+                dest_carthage_chip: "Ideal als Tagesausflug",
+
+                dest_hammamet_title: "Hammamet",
+                dest_hammamet_text: "Bekannter Badeort mit langen Sandstränden, All-inclusive-Hotels, Wassersport und lebendigem Nachtleben.",
+                dest_hammamet_badge1: "Strand & Sonne",
+                dest_hammamet_badge2: "Perfekt für Familien",
+                dest_hammamet_chip: "Ideal für 4–7 Tage",
+
+                dest_sahara_title: "Sahara (Tozeur & Douz)",
+                dest_sahara_text: "Wüstenlager unter Sternen, goldene Dünen, Oasen und Filmkulissen – das Sahara-Abenteuer zum Greifen nah.",
+                dest_sahara_badge1: "Wüste & Oasen",
+                dest_sahara_badge2: "Für Abenteuerlustige",
+                dest_sahara_chip: "Ideal für 2–3 Tage",
+
+                dest_sidi_title: "Sidi Bou Saïd",
+                dest_sidi_text: "Weiß-blaues Dorf über dem Meer, traditionelle Cafés, Galerien und Bohème-Atmosphäre bei Sonnenuntergang.",
+                dest_sidi_badge1: "Malerisches Dorf",
+                dest_sidi_badge2: "Cafés & Meerblick",
+                dest_sidi_chip: "Perfekt für einen halben Tag",
+
+                dest_djerba_title: "Djerba",
+                dest_djerba_text: "Insel mit mildem Klima, ruhigen Stränden, traditionellen Dörfern, Kitesurf-Spots und Thalasso-Zentren.",
+                dest_djerba_badge1: "Insel & Strand",
+                dest_djerba_badge2: "Wellness & Thalasso",
+                dest_djerba_chip: "Ideal für 5–10 Tage",
+
+                dest_tunis_title: "Tunis & seine Medina",
+                dest_tunis_text: "UNESCO-Medina, lebhafte Souks, Moscheen, Museen und moderne Viertel – Tunesien in einer Stadt.",
+                dest_tunis_badge1: "Souks & Handwerk",
+                dest_tunis_badge2: "Erbe & Museen",
+                dest_tunis_chip: "Ideal für 2–4 Tage",
+
+                no_results: "Kein Reiseziel entspricht derzeit Ihren Kriterien. Erweitern Sie bitte Ihre Filter.",
+
+                culture_title: "Tunesische Kultur & Küche",
+                culture_intro: "Tunesien liegt am Schnittpunkt arabischer, berberischer, osmanischer und mediterraner Einflüsse. Lebhafte Medinas, Festivals, eine großzügige Küche und Gastfreundschaft prägen jede Reise.",
+                culture_food_title: "Kulinarische Highlights",
+                culture_food_1: "Couscous (mit Lamm, Fisch oder Gemüse)",
+                culture_food_2: "Knusprige Brik mit Ei",
+                culture_food_3: "Harissa, die berühmte scharfe Paste",
+                culture_food_4: "Ojja (Tomaten, Paprika, Eier)",
+                culture_food_5: "Minztee mit Pinienkernen",
+                culture_experience_title: "Kulturelle Erlebnisse",
+                culture_experience_1: "Bummeln durch die Souks von Tunis oder Sousse",
+                culture_experience_2: "Besuch des Internationalen Festivals von Karthago",
+                culture_experience_3: "Mosaiken im Bardo-Museum entdecken",
+                culture_experience_4: "Berberdörfer in den Bergen besuchen (Chenini, Douiret…)",
+                culture_experience_5: "Sonnenuntergang in Sidi Bou Saïd beobachten",
+
+                contact_title: "Ihre Reise planen",
+                contact_intro: "Nennen Sie uns Ihre Reisedaten, Ihr Budget und Ihren Reisestil. Wir erstellen einen maßgeschneiderten Vorschlag für Tunesien.",
+                contact_name_placeholder: "Vollständiger Name",
+                contact_email_placeholder: "E-Mail-Adresse",
+                contact_type_placeholder: "Art der Reise",
+                contact_type_beach: "Strand- & Entspannungsurlaub",
+                contact_type_circuit: "Kultur-Rundreise",
+                contact_type_desert: "Wüste & Abenteuer",
+                contact_type_mix: "Mix aus Strand / Kultur / Wüste",
+                contact_message_placeholder: "Erzählen Sie uns von Ihren Plänen: Daten, Budget, Anzahl der Reisenden …",
+                contact_button: "Anfrage senden",
+
+                footer_text: "© 2025 Discover Tunisia. Alle Rechte vorbehalten.",
+                footer_privacy: "Datenschutzerklärung",
+
+                recommend_label: "Empfohlen für Sie"
+            },
+            ar: {
+                page_title: "اكتشف تونس - بوابتك إلى المغامرة",
+                brand_name: "Discover Tunisia",
+                nav_home: "الرئيسية",
+                nav_destinations: "الوجهات",
+                nav_culture: "الثقافة",
+                nav_contact: "اتصل بنا",
+                hero_title: "مرحباً بكم في تونس",
+                hero_subtitle: "شواطئ متوسطية، قرى بيضاء وزرقاء، صحراء ساحرة ومواقع أثرية عريقة – اصنع رحلتك كما تحب.",
+                hero_cta_destinations: "استكشف الوجهات",
+                hero_cta_plan: "خطط لرحلتك",
+                destinations_title: "أهم الوجهات في تونس",
+                destinations_intro: "رشّح الوجهات حسب النوع أو المنطقة أو الكلمات المفتاحية، ودع الموقع يقترح عليك الأماكن الأنسب لأسلوب سفرك.",
+                filters_type_label: "نوع الوجهة",
+                filter_all: "الكل",
+                filter_beach: "شواطئ",
+                filter_desert: "صحراء",
+                filter_culture: "ثقافة وتاريخ",
+                filter_city: "مدن و مدن قديمة",
+                filter_wellness: "استجمام",
+                filters_region_label: "المنطقة",
+                region_all: "كل تونس",
+                region_north: "الشمال و تونس العاصمة",
+                region_sahel: "الساحل و الشرق",
+                region_south: "الجنوب و الصحراء",
+                region_islands: "الجزر و الساحل",
+                filters_search_label: "بحث حسب المدينة / المكان",
+                filters_search_placeholder: "مثال: جربة، تونس، توزر…",
+                filters_profile_label: "نوع المسافر",
+                profile_placeholder: "اختر نوعاً",
+                profile_family: "عائلة",
+                profile_adventure: "مغامر",
+                profile_culture: "محب للتاريخ و الثقافة",
+                profile_relax: "شاطئ و استرخاء",
+
+                dest_carthage_title: "قرطاج",
+                dest_carthage_text: "موقع تاريخي مهم مصنف ضمن التراث العالمي لليونسكو، بآثار رومانية وتراث قرطاجي وإطلالة على خليج تونس.",
+                dest_carthage_badge1: "ثقافة وتاريخ",
+                dest_carthage_badge2: "قريبة من تونس العاصمة",
+                dest_carthage_chip: "مثالية لرحلة يوم واحد",
+
+                dest_hammamet_title: "الحمامات",
+                dest_hammamet_text: "منتجع سياحي شهير بشواطئ رملية طويلة، فنادق شاملة، رياضات مائية وأجواء حيوية في المساء.",
+                dest_hammamet_badge1: "شاطئ و شمس",
+                dest_hammamet_badge2: "مناسبة للعائلات",
+                dest_hammamet_chip: "مثالية لإقامة من 4 إلى 7 أيام",
+
+                dest_sahara_title: "الصحراء (توزر و دوز)",
+                dest_sahara_text: "مخيمات تحت السماء المرصعة بالنجوم، كثبان ذهبية، واحات خضراء ومناظر سينمائية: تجربة صحراوية لا تُنسى.",
+                dest_sahara_badge1: "صحراء و واحات",
+                dest_sahara_badge2: "لمن يحب المغامرة",
+                dest_sahara_chip: "مثالية لإقامة من 2 إلى 3 أيام",
+
+                dest_sidi_title: "سيدي بوسعيد",
+                dest_sidi_text: "قرية بيضاء وزرقاء مطلة على البحر، مقاهٍ تقليدية، معارض فنية وأجواء بوهيمية عند الغروب.",
+                dest_sidi_badge1: "قرية ساحرة",
+                dest_sidi_badge2: "مقاهٍ و إطلالة بحرية",
+                dest_sidi_chip: "مثالية لنصف يوم",
+
+                dest_djerba_title: "جزيرة جربة",
+                dest_djerba_text: "جزيرة ذات مناخ معتدل، شواطئ هادئة، قرى تقليدية، مواقع كايت سيرف ومراكز للعلاج بمياه البحر.",
+                dest_djerba_badge1: "جزيرة و شاطئ",
+                dest_djerba_badge2: "استجمام و سبا",
+                dest_djerba_chip: "مثالية لإقامة من 5 إلى 10 أيام",
+
+                dest_tunis_title: "تونس و مدينتها العتيقة",
+                dest_tunis_text: "مدينة قديمة مصنّفة في اليونسكو، أسواق تقليدية، مساجد، متاحف و أحياء حديثة: تونس في مدينة واحدة.",
+                dest_tunis_badge1: "أسواق و حرف",
+                dest_tunis_badge2: "تراث و متاحف",
+                dest_tunis_chip: "مثالية لإقامة من 2 إلى 4 أيام",
+
+                no_results: "لا توجد وجهات مطابقة للمعايير الحالية. جرّب توسيع نطاق البحث.",
+
+                culture_title: "الثقافة و المطبخ التونسي",
+                culture_intro: "تونس ملتقى التأثيرات العربية و الأمازيغية و العثمانية و المتوسطية. مدن قديمة نابضة بالحياة، مهرجانات، مطبخ غني و كرم ضيافة يميز كل رحلة.",
+                culture_food_title: "أطباق تقليدية مميزة",
+                culture_food_1: "كسكسي (باللحم أو السمك أو الخضر)",
+                culture_food_2: "بريك بالبيض مقرمش",
+                culture_food_3: "هريسة، الصلصة الحارة الشهيرة",
+                culture_food_4: "عجة (طماطم، فلفل، بيض)",
+                culture_food_5: "شاي بالنعناع والصنوبر",
+                culture_experience_title: "تجارب ثقافية",
+                culture_experience_1: "التجول في أسواق المدينة العتيقة في تونس أو سوسة",
+                culture_experience_2: "حضور مهرجان قرطاج الدولي",
+                culture_experience_3: "اكتشاف الفسيفساء في متحف باردو",
+                culture_experience_4: "زيارة القرى الأمازيغية في الجبال (شنني، دويرات…)",
+                culture_experience_5: "مشاهدة غروب الشمس من سيدي بوسعيد",
+
+                contact_title: "خطط لرحلتك",
+                contact_intro: "أخبرنا عن التواريخ، الميزانية ونمط السفر الذي تفضله، لنقترح عليك برنامجاً خاصاً لاكتشاف تونس.",
+                contact_name_placeholder: "الاسم الكامل",
+                contact_email_placeholder: "البريد الإلكتروني",
+                contact_type_placeholder: "نوع الرحلة",
+                contact_type_beach: "إقامة شاطئية و استرخاء",
+                contact_type_circuit: "جولة ثقافية",
+                contact_type_desert: "صحراء و مغامرة",
+                contact_type_mix: "مزيج بين شاطئ / ثقافة / صحراء",
+                contact_message_placeholder: "صف لنا توقعاتك: التواريخ، الميزانية، عدد الأشخاص…",
+                contact_button: "إرسال الطلب",
+
+                footer_text: "© 2025 Discover Tunisia. جميع الحقوق محفوظة.",
+                footer_privacy: "سياسة الخصوصية",
+
+                recommend_label: "موصى به لك"
+            }
+        };
+
+        // === LOGIQUE DE LANGUE ===
+        const languageSelect = document.getElementById('languageSelect');
+
+        function setLanguage(lang) {
+            const dict = translations[lang] || translations.fr;
+
+            // Attributs HTML
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.title = dict.page_title || document.title;
+            languageSelect.value = lang;
+
+            // Textes
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (dict[key]) {
+                    el.innerHTML = dict[key];
+                }
+            });
+
+            // Placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if (dict[key]) {
+                    el.placeholder = dict[key];
+                }
+            });
+
+            // Label "Recommandé pour vous" sur les cartes
+            document.querySelectorAll('.destination-card').forEach(card => {
+                card.setAttribute('data-recommend-label', dict.recommend_label || '');
+            });
+        }
+
+        languageSelect.addEventListener('change', e => {
+            setLanguage(e.target.value);
+        });
+
+        // === LOGIQUE FILTRES DESTINATIONS ===
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.destination-card');
+        const searchInput = document.getElementById('searchInput');
+        const profileSelect = document.getElementById('profileSelect');
+        const regionSelect = document.getElementById('regionSelect');
+        const noResults = document.getElementById('noResults');
+
+        function applyFilters() {
+            const typeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+            const searchValue = searchInput.value.trim().toLowerCase();
+            const profile = profileSelect.value;
+            const regionFilter = regionSelect.value || 'all';
+
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cardType = card.dataset.type;
+                const cardName = card.dataset.name || '';
+                const cardThemes = card.dataset.themes ? card.dataset.themes.split(',') : [];
+                const cardRegion = card.dataset.region || 'all';
+
+                let matchesType = (typeFilter === 'all') || (cardType === typeFilter);
+                let matchesSearch = !searchValue || cardName.toLowerCase().includes(searchValue);
+                let matchesProfile = true;
+                if (profile) {
+                    matchesProfile = cardThemes.includes(profile);
+                }
+                let matchesRegion = (regionFilter === 'all') || (cardRegion === regionFilter);
+
+                if (matchesType && matchesSearch && matchesProfile && matchesRegion) {
+                    card.parentElement.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.parentElement.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                applyFilters();
+            });
+        });
+
+        searchInput.addEventListener('input', applyFilters);
+        profileSelect.addEventListener('change', () => {
+            // reset recommandations, puis marquer celles qui matchent le profil
+            cards.forEach(card => card.classList.remove('recommended'));
+            const profile = profileSelect.value;
+            if (profile) {
+                cards.forEach(card => {
+                    const themes = card.dataset.themes ? card.dataset.themes.split(',') : [];
+                    if (themes.includes(profile)) {
+                        card.classList.add('recommended');
+                    }
+                });
+            }
+            applyFilters();
+        });
+        regionSelect.addEventListener('change', applyFilters);
+
+        // === FORMULAIRE (simulation) ===
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Merci ! Nous reviendrons vers vous rapidement avec une proposition personnalisée. / Thank you! We will get back to you soon.");
+            this.reset();
+        });
+
+        // Initialisation : FR par défaut
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('fr');
+            applyFilters();
+        });
+    </script>
+</body>
+</html>
